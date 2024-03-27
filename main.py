@@ -90,8 +90,6 @@ class Puzzle:
 
                 # add new nodes to open
                 state_in_closed = any(np.array_equal(new, node.state) for node in closed)
-                # state_tuple = tuple(map(tuple, new))
-                # state_in_closed = any(np.array_equal(state_tuple, tuple(map(tuple, node.state))) for node in closed)
                 if not state_in_closed:
                     next_node = Node(new, current, g = current.g + 1, h = self.distance(new))
                     next_node.f = next_node.g + next_node.h
