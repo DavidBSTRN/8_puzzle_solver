@@ -81,6 +81,7 @@ class Puzzle:
                 return current
 
             closed.append(current)
+            # print(f'close:', len(closed))
 
             # Expand
             moves = self.possible_moves(current.state)
@@ -89,10 +90,13 @@ class Puzzle:
 
                 # add new nodes to open
                 state_in_closed = any(np.array_equal(new, node.state) for node in closed)
+                # state_tuple = tuple(map(tuple, new))
+                # state_in_closed = any(np.array_equal(state_tuple, tuple(map(tuple, node.state))) for node in closed)
                 if not state_in_closed:
                     next_node = Node(new, current, g = current.g + 1, h = self.distance(new))
                     next_node.f = next_node.g + next_node.h
                     open.append(next_node)
+                    # print(f'open', len(open))
 
         return None
 
@@ -109,12 +113,20 @@ class Puzzle:
             print(state)
             print('========')
 
+        print(len(path))
+
 
 if __name__ == "__main__":
-    initial_state = np.array([[1, 2, 3], [4, 5, 0], [6, 7, 8]])
-    gl_state = np.array([[0, 1, 2], [3, 4, 5], [6, 7, 8]])
+    # normal one
+    # initial_state = np.array([[2, 3, 0], [1, 5, 6], [4, 7, 8]])  # 6 moves
+    initial_state = np.array([[1, 3, 6], [5, 8, 2], [0, 7, 4]])  # 18 moves
+    # initial_state = np.array([[8, 6, 7], [2, 5, 4], [3, 0, 1]])  # Have solution but not worth to wait with A*
+    gl_state = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 0]])
     solver = Puzzle(initial_state, gl_state)
     solution = solver.a_star()
 
     if solution is not None:
         solver.print(solution)
+    else:
+        print('ups')
+
