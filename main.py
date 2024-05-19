@@ -111,20 +111,21 @@ class Puzzle:
             print(state)
             print('========')
 
-        print(len(path))
+        print(f"Moves:", len(path))
 
 
 if __name__ == "__main__":
-    # normal one
-    # initial_state = np.array([[2, 3, 0], [1, 5, 6], [4, 7, 8]])  # 6 moves
-    initial_state = np.array([[1, 3, 6], [5, 8, 2], [0, 7, 4]])  # 18 moves
+    initial_state = np.array([[2, 3, 0], [1, 5, 6], [4, 7, 8]])  # 6 moves
     # initial_state = np.array([[8, 6, 7], [2, 5, 4], [3, 0, 1]])  # Have solution but not worth to wait with A*
+    # initial_state = np.array([[1, 3, 6], [5, 8, 2], [0, 7, 4]])  # 18 moves
     gl_state = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 0]])
     solver = Puzzle(initial_state, gl_state)
     solution = solver.a_star()
 
     if solution is not None:
+        print(initial_state)
+        print('========')
         solver.print(solution)
     else:
-        print('ups')
+        print("Can't find soulution")
 
